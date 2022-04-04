@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>滚动示例</title>
+  <style>
+    .container {
+      width: 300px;
+      height: 500px;
+      overflow: auto;
+      border: 1px solid #eee;
+    }
+
+    ::-webkit-scrollbar {
+      position: absolute;
+      width: 4px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      /* 滚动条的滑轨背景颜色 */
+      background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      /* 滑块颜色 */
+      background: rgba(0, 0, 0, .2);
+      border-radius: 4px;
+      box-shadow: inset 0 0 10px rgb(0 0 0 / 10%);
+    }
+
+    ::-webkit-scrollbar-button {
+      /* 滑轨两头的监听按钮颜色 */
+      background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-corner {
+      /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
+      background-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <ul class="content"></ul>
+  </div>
+
+
+  <script>
+    const content = document.querySelector(".content")
+    const fragment = document.createElement("fragment")
+    new Array(20).fill(true).forEach((item, i) => {
+      const li = document.createElement("li")
+      li.innerHTML = `<h1>${'item' + i}</h1>`
+      fragment.appendChild(li)
+    })
+    content.appendChild(fragment)
+  </script>
+</body>
+
+</html>
