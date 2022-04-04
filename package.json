@@ -1,6 +1,6 @@
 {
   "name": "story-scrollbar",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "这是一个专门为vue2提供的scrollbar解决方案 , 欢迎各位提交issues",
   "main": "lib/build.js",
   "scripts": {
