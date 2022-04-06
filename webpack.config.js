@@ -1,83 +1,42 @@
 const path = require('path');
-// const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader-plugin')
 
 module.exports = {
-  mode: "production",
-  entry: './index.js',
-  output: {
-    path: path.resolve(__dirname, './lib'),
-    publicPath: '/lib/',
-    filename: 'build.js',
-    module: true,
-    library: {
-      type: 'module'
-    },
-  },
-  experiments: {
-    outputModule: true,
-  },
+  entry: "./index.js",
+  mode:'production',
+  plugins: [
+    new VueLoaderPlugin()
+  ],
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ],
-      }, {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
+        test:/\.css$/,
+        use:[
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
           }
-          // other vue-loader options go here
-        }
+        ],
+        exclude: /node_modules/
+      },
+      {
+        test:/\.vue$/,
+        use:'vue-loader',
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
       },
-      {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
-      }
-    ]
+    ],
   },
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    },
-    extensions: ['*', '.js', '.vue', '.json']
+  experiments: {
+    outputModule: true,
   },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    overlay: true
-  },
-  performance: {
-    hints: false
+  output: {
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'lib'),
+    clean: true,
+    module: true,
+    libraryTarget:"module"
   },
 }
-
-// if (process.env.NODE_ENV === 'production') {
-//   module.exports.plugins = (module.exports.plugins || []).concat([
-//     new webpack.DefinePlugin({
-//       'process.env': {
-//         NODE_ENV: '"production"'
-//       }
-//     }),
-//     new webpack.optimize.UglifyJsPlugin({
-//       sourceMap: true,
-//       compress: {
-//         warnings: false
-//       }
-//     }),
-//     new webpack.LoaderOptionsPlugin({
-//       minimize: true
-//     })
-//   ])
-// }
